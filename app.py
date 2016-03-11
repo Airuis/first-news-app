@@ -3,8 +3,7 @@ from flask import Flask
 from flask import render_template
 app = Flask(__name__)
 
-def get_csv():
-	csv_path = 'static/deaths.csv'
+def get_csv(csv_path):
 	csv_file = open(csv_path, 'rb')
 	csv_obj = csv.DictReader(csv_file)
 	csv_list = list(csv_obj)
@@ -13,7 +12,7 @@ def get_csv():
 @app.route("/")
 def index():
 	template = 'index.html'
-	object_list = get_csv()
+	object_list = get_csv('./static/deaths.csv')
 	return render_template(template, object_list=object_list)
 
 if __name__ == '__main__':
